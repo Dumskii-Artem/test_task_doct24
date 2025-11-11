@@ -29,8 +29,11 @@
       "@api/*": ["api/*"],
       "@assets/*": ["assets/*"],
       "@components/*": ["components/*"],
+      "@layouts/*": ["layouts/*"],
       "@pages/*": ["pages/*"],
-      "@store/*": ["store/*"]
+      "@router": ["router"],
+      "@store/*": ["store/*"],
+      "@ui/*": ["ui/*"]
     }
 
   },

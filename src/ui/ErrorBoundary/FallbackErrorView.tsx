@@ -1,4 +1,4 @@
-// src\components\FallbackErrorView.tsx
+// src\ui\ErrorBoundary\FallbackErrorView.tsx
 
 type Props = {
   message?: string;

@@ -1,4 +1,5 @@
-// src\components\ErrorBoundary.tsx
+// src\ui\ErrorBoundary\ErrorBoundary.tsx
+
 import { Component, type ReactNode } from 'react';
 import FallbackErrorView from './FallbackErrorView';
 
