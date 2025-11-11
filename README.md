@@ -1,3 +1,49 @@
+## Требуется Node.js версии 20.19.5
+
+Установка через nvm:
+
+```
+nvm install 20.19.5
+nvm use
+```
+
+
+## Установка
+
+```bash
+npm install
+```
+
+## Запуск
+
+```
+npm run dev
+
+```
+
+## Сборка
+
+```
+npm run build
+```
+
+## Запуск Линтера
+
+```
+npm run lint
+```
+или 
+```
+npm run lint:fix
+```
+
+## Исправить ошибки линтера
+
+```
+npx prettier --write .
+```
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
