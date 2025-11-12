@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import styles from './Header.module.css';
 import { useDispatch, useSelector } from '@services/store';
 import { setCurrentDepartment } from '@services/departments';
-import { fetchSearchThunk } from '@services/search/search-slice';
+import { fetchSearchThunk, setSearchParams } from '@services/search/search-slice';
 
 
 export default function Header() {
@@ -16,12 +16,24 @@ export default function Header() {
     const selected = departments.find(
       (dep) => dep.departmentId === Number(event.target.value)
     );
-    if (selected) {
-      dispatch(setCurrentDepartment(selected));
-      dispatch(fetchSearchThunk({ departmentId: selected.departmentId, hasImages: true, q: '*' }));
-    }
-  };  
 
+    if (selected) {
+      // Обновляем текущий отдел
+      dispatch(setCurrentDepartment(selected));
+
+      // Обновляем параметры поиска в сторе
+      dispatch(
+        setSearchParams({
+          departmentId: selected.departmentId,
+          hasImages: true,
+          q: '*',
+        })
+      );
+
+      // Запускаем поиск — thunk возьмёт параметры из стора
+      dispatch(fetchSearchThunk());
+    }
+  }
 
   return (
     <header className={styles.header}>
