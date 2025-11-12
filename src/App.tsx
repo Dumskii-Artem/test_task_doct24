@@ -8,16 +8,35 @@ import ErrorBoundary from '@ui/ErrorBoundary/ErrorBoundary'
 import FallbackErrorView from '@ui/ErrorBoundary/FallbackErrorView'
 import { router } from '@router'
 import { RouterProvider } from 'react-router-dom'
-import { useDispatch } from '@services/store'
+import { useDispatch, useSelector } from '@services/store'
 import { fetchDepartmentsThunk } from '@services/departments'
+import { fetchSearchThunk } from '@services/search/search-slice'
 
 export default function App() {
   const dispatch = useDispatch();
   
+  // При первом запуске — загрузить список отделов
   useEffect(() => {
-    // при первом рендере приложения загрузить отделы
     dispatch(fetchDepartmentsThunk());
   }, [dispatch]);
+
+  const { current, loading: depsLoading, items: departments } = useSelector(
+    (state) => state.departments
+  );
+
+  // Когда отделы загрузились и выбран текущий — запустить поиск
+  useEffect(() => {
+    if (!depsLoading && current && departments.length > 0) {
+      dispatch(
+        fetchSearchThunk({
+          departmentId: current.departmentId,
+          hasImages: true,
+          q: '*',
+        })
+      );
+      console.log(current.departmentId);
+    }
+  }, [dispatch, depsLoading, current, departments]);
 
   return (
     <ErrorBoundary>

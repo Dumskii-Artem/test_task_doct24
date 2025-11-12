@@ -4,11 +4,13 @@ import { NavLink } from 'react-router-dom';
 import styles from './Header.module.css';
 import { useDispatch, useSelector } from '@services/store';
 import { setCurrentDepartment } from '@services/departments';
+import { fetchSearchThunk } from '@services/search/search-slice';
 
 
 export default function Header() {
   const dispatch = useDispatch();
   const { items: departments, current } = useSelector((state) => state.departments);
+  const { total, loading, error } = useSelector((state) => state.search);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selected = departments.find(
@@ -16,8 +18,10 @@ export default function Header() {
     );
     if (selected) {
       dispatch(setCurrentDepartment(selected));
+      dispatch(fetchSearchThunk({ departmentId: selected.departmentId, hasImages: true, q: '*' }));
     }
-  };
+  };  
+
 
   return (
     <header className={styles.header}>
@@ -36,23 +40,45 @@ export default function Header() {
         </NavLink>
       </nav>
 
-      {/* Комбобокс с отделами */}
-      <div className={styles.selectContainer}>
-        <label htmlFor="department" className={styles.label}>
-          Отдел:
-        </label>
-        <select
-          id="department"
-          value={current?.departmentId || ''}
-          onChange={handleChange}
-          className={styles.select}
-        >
-          {departments.map((dep) => (
-            <option key={dep.departmentId} value={dep.departmentId}>
-              {dep.displayName}
-            </option>
-          ))}
-        </select>
+      <div className={styles.rightContainer}>
+        {/* Комбобокс с отделами */}
+        <div className={styles.selectContainer}>
+          <label htmlFor="department" className={styles.label}>
+            Отдел:
+          </label>
+          <select
+            id="department"
+            value={current?.departmentId || ''}
+            onChange={handleChange}
+            className={styles.select}
+          >
+            {departments.map((dep) => (
+              <option key={dep.departmentId} value={dep.departmentId}>
+                {dep.displayName}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Количество экспонатов */}
+        <div className={styles.countBox}>
+
+          {loading && <span>Загрузка экспонатов…</span>}
+          {!loading && (
+            <span>Экспонатов найдено: {total.toLocaleString('ru-RU')}</span>
+          )}
+          {error && <span className={styles.error}>Ошибка загрузки</span>}
+
+
+
+          {/* {loading && <span>Загрузка экспонатов…</span>}
+          {!loading && !error && total > 0 && (
+            <span>Экспонатов найдено: {total.toLocaleString('ru-RU')}</span>
+          )}
+          {error && <span className={styles.error}>Ошибка загрузки</span>} */}
+
+
+        </div>
       </div>
     </header>
   );

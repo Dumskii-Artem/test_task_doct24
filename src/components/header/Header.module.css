@@ -55,10 +55,25 @@
   color: #333;
 }
 
+.rightContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* расстояние между комбобоксом и счётчиком */
+}
+
 .select {
   padding: 4px 8px;
   border-radius: 6px;
   border: 1px solid #ccc;
   background-color: white;
   font-size: 14px;
+}
+
+.countBox {
+  font-size: 14px;
+  color: #333;
+}
+
+.error {
+  color: #d32f2f;
 }

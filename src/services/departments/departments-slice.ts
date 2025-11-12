@@ -39,10 +39,9 @@ export const departmentsSlice = createSlice({
           a.displayName.localeCompare(b.displayName)
         );
         state.items = sorted;
+        // выбираем случайный раздел
         const random = action.payload[Math.floor(Math.random() * action.payload.length)];
         state.current = random;
-        // ✅ пока выбираем первый отдел
-        state.current = sorted[0] || null;
       })
       .addCase(fetchDepartmentsThunk.rejected, (state, action) => {
         state.loading = false;
