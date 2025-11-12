@@ -34,7 +34,7 @@
       "@layouts/*": ["layouts/*"],
       "@pages/*": ["pages/*"],
       "@router": ["router"],
-      "@store/*": ["services/*"],
+      "@services/*": ["services/*"],
       "@ui/*": ["ui/*"]
     }
 

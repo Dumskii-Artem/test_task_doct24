@@ -35,9 +35,14 @@ export const departmentsSlice = createSlice({
       })
       .addCase(fetchDepartmentsThunk.fulfilled, (state, action) => {
         state.loading = false;
-        state.items = action.payload;
+        const sorted = [...action.payload].sort((a, b) =>
+          a.displayName.localeCompare(b.displayName)
+        );
+        state.items = sorted;
         const random = action.payload[Math.floor(Math.random() * action.payload.length)];
         state.current = random;
+        // ✅ пока выбираем первый отдел
+        state.current = sorted[0] || null;
       })
       .addCase(fetchDepartmentsThunk.rejected, (state, action) => {
         state.loading = false;
