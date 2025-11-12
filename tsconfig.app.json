@@ -29,6 +29,8 @@
       "@api/*": ["api/*"],
       "@assets/*": ["assets/*"],
       "@components/*": ["components/*"],
+      "@const": ["const/index.ts"],
+      "@const/*": ["const/*"],
       "@layouts/*": ["layouts/*"],
       "@pages/*": ["pages/*"],
       "@router": ["router"],
