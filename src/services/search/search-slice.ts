@@ -1,18 +1,18 @@
 // src\services\search\search-slice.ts
 
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import type { TSearchResult } from './search-types';
-import type { TSearchParams } from './search-api';
+import type { TSearchResult, TSearchState } from './search-types';
 import { fetchSearch } from './search-api';
 
-export type TSearchState = {
-  total: number;
-  objectIDs: number[];
-  loading: boolean;
-  error: string | null;
-};
+// export type TSearchState = {
+//   total: number;
+//   objectIDs: number[];
+//   loading: boolean;
+//   error: string | null;
+// };
 
 const initialState: TSearchState = {
+  params: {},   
   total: 0,
   objectIDs: [],
   loading: false,
@@ -22,8 +22,9 @@ const initialState: TSearchState = {
 /** Асинхронный thunk для выполнения поиска */
 export const fetchSearchThunk = createAsyncThunk(
   'search/fetch',
-  async (params: TSearchParams): Promise<TSearchResult> => {
-    const result = await fetchSearch(params);
+  async (_, { getState }): Promise<TSearchResult> => {
+    const state = getState() as { search: TSearchState };
+    const result = await fetchSearch(state.search.params);
     return result;
   }
 );
@@ -32,10 +33,15 @@ export const searchSlice = createSlice({
   name: 'search',
   initialState,
   reducers: {
-    clearSearch: (state) => {
-      state.total = 0;
-      state.objectIDs = [];
-      state.error = null;
+    // clearSearch: (state) => {
+    //   state.params = {};
+    //   state.total = 0;
+    //   state.objectIDs = [];
+    //   state.error = null;
+    // },
+    // Редьюсер для установки параметров поиска
+    setSearchParams(state, action) {
+      state.params = action.payload; // Полная замена params
     },
   },
   extraReducers: (builder) => {
@@ -56,5 +62,6 @@ export const searchSlice = createSlice({
   },
 });
 
-export const { clearSearch } = searchSlice.actions;
+// export const { clearSearch } = searchSlice.actions;
 export const searchReducer = searchSlice.reducer;
+export const { setSearchParams } = searchSlice.actions;

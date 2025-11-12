@@ -10,7 +10,7 @@ import { router } from '@router'
 import { RouterProvider } from 'react-router-dom'
 import { useDispatch, useSelector } from '@services/store'
 import { fetchDepartmentsThunk } from '@services/departments'
-import { fetchSearchThunk } from '@services/search/search-slice'
+import { fetchSearchThunk, setSearchParams } from '@services/search/search-slice'
 
 export default function App() {
   const dispatch = useDispatch();
@@ -26,17 +26,32 @@ export default function App() {
 
   // Когда отделы загрузились и выбран текущий — запустить поиск
   useEffect(() => {
-    if (!depsLoading && current && departments.length > 0) {
-      dispatch(
-        fetchSearchThunk({
-          departmentId: current.departmentId,
-          hasImages: true,
-          q: '*',
-        })
-      );
-      console.log(current.departmentId);
-    }
-  }, [dispatch, depsLoading, current, departments]);
+  if (!depsLoading && current && departments.length > 0) {
+    // Сначала сохраняем параметры поиска в стор
+    dispatch(
+      setSearchParams({
+        departmentId: current.departmentId,
+        hasImages: true,
+        q: '*',
+      })
+    );
+
+    // Затем выполняем поиск, thunk возьмёт params из state.search.params
+    dispatch(fetchSearchThunk());
+  }
+}, [dispatch, depsLoading, current, departments]);
+
+  // useEffect(() => {
+  //   if (!depsLoading && current && departments.length > 0) {
+  //     dispatch(
+  //       fetchSearchThunk({
+  //         departmentId: current.departmentId,
+  //         hasImages: true,
+  //         q: '*',
+  //       })
+  //     );
+  //   }
+  // }, [dispatch, depsLoading, current, departments]);
 
   return (
     <ErrorBoundary>
