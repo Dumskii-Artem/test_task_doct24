@@ -8,12 +8,13 @@ import styles from './ProductsPage.module.css';
 import Pagination from '@components/pagination/Pagination';
 import { useDispatch, useSelector } from '@services/store';
 import { setCurrentPage } from '@services/pagination';
+import { selectTotalPages } from '@services/search/selectors';
 
 export default function ProductsPage() {
   const currentPage = useSelector((state) => state.pagination.currentPage);
   const dispatch = useDispatch();
 
-  const totalPages = 5;
+  const totalPages = useSelector(selectTotalPages);
 
   const handlePageChange = (page: number) => {
     dispatch(setCurrentPage(page));

@@ -1,0 +1,25 @@
+/* src\components\footer\Footer.module.css */
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-bg_header);
+  border-top: 1px solid var(--color-border);
+  padding: 12px 32px;
+  box-shadow: var(--shadow-md);
+  box-sizing: border-box;
+  margin-top: 32px;
+}
+
+.left a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.left a:hover {
+  text-decoration: underline;
+  color: var(--color-primary);
+}

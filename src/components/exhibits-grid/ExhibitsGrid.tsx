@@ -3,16 +3,18 @@
 import { useSelector } from '@services/store';
 import ExhibitCard from '../exhibit-card/ExhibitCard';
 import styles from './ExhibitsGrid.module.css';
+import { selectCurrentPageExhibits } from './selectors';
 
 export default function ExhibitsGrid() {
-  const exhibits = useSelector((state) => state.exhibits.entities);
-  const loadedIds = useSelector((state) => state.exhibits.loadedIds);
+  const exhibits = useSelector(selectCurrentPageExhibits);
 
   return (
     <div className={styles.grid}>
-      {loadedIds.map((id) => (
-        <ExhibitCard key={id} exhibit={exhibits[id]} />
-      ))}
+      <div className={styles.grid}>
+        {exhibits.map((exhibit) => (
+          <ExhibitCard key={exhibit.objectID} exhibit={exhibit} />
+        ))}
+      </div>
     </div>
-  );
+  );      
 }

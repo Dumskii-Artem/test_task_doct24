@@ -2,25 +2,41 @@
 
 .pagination {
   display: flex;
-  gap: 4px;
+  gap: 8px; /* как в nav */
   margin-top: 20px;
   justify-content: center;
   flex-wrap: wrap;
 }
 
-.pagination button {
-  padding: 4px 8px;
-  border: 1px solid #aaa;
-  background-color: #fff;
+.pageButton {
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+  font: var(--font-base);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  min-width: 36px;
   cursor: pointer;
 }
 
-.pagination button:disabled {
+.pageButton:hover:not(:disabled) {
+  background: var(--color-hover);
+  color: var(--color-primary);
+}
+
+.pageButton:disabled {
   opacity: 0.5;
   cursor: default;
 }
 
-.pagination .active {
-  font-weight: bold;
-  background-color: #ddd;
+.active {
+  background: var(--color-primary);
+  color: var(--color-white);
 }
