@@ -6,16 +6,17 @@
 import ExhibitsGrid from '@components/exhibits-grid/ExhibitsGrid';
 import styles from './ProductsPage.module.css';
 import Pagination from '@components/pagination/Pagination';
-import { useState } from 'react';
+import { useDispatch, useSelector } from '@services/store';
+import { setCurrentPage } from '@services/pagination';
 
 export default function ProductsPage() {
-
-  const [currentPage, setCurrentPage] = useState(1);
+  const currentPage = useSelector((state) => state.pagination.currentPage);
+  const dispatch = useDispatch();
 
   const totalPages = 5;
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page);
+    dispatch(setCurrentPage(page));
   };
 
   return (

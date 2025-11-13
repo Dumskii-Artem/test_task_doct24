@@ -54,3 +54,9 @@
 .button:hover {
   background: #1257a0;
 }
+
+.paginationContainer {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+}

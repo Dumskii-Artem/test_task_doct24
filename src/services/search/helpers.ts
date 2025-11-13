@@ -4,6 +4,7 @@ import type { AppDispatch, RootState } from "@services/store";
 import type { TSearchParams } from "./search-types";
 import { fetchSearchThunk, setSearchParams } from "./search-slice";
 import isEqual from 'lodash.isequal';
+import { resetPagination } from "@services/pagination";
 
 export function maybeFetchSearch(
   dispatch: AppDispatch,
@@ -22,7 +23,8 @@ export function maybeFetchSearch(
     console.log('++++++ maybeFetchSearch: параметры не изменились — пропускаем запрос');
     return;
   }
-
+  
+  dispatch(resetPagination());
   dispatch(setSearchParams(newParams));
   dispatch(fetchSearchThunk());
 }

@@ -27,14 +27,15 @@ export default function App() {
   // const [isBlocked, setIsBlocked] = useState(false);
   const loadedIds = useSelector((state) => state.exhibits.loadedIds);
   const firstTimeRunRef = useRef(false);
+  const currentPage = useSelector((state) => state.pagination.currentPage);
+
+
+  // const [currentPage, setCurrentPage] = useState(1);
 
   // При первом запуске — загрузить список отделов
   useEffect(() => {
     if (firstTimeRunRef.current) return;
       firstTimeRunRef.current = true;
-    // if (isBlocked)
-    //   return
-    // setIsBlocked(true);
     console.log('*** START ***');
     dispatch(fetchDepartmentsThunk());
   }, [dispatch]);
@@ -68,13 +69,25 @@ export default function App() {
   }, [dispatch, isDepartmentsLoading, current?.departmentId]);
 
 
-  // Когда поиск завершён — загружаем первую страницу экспонатов
+  // useEffect(() => {
+  //   if (searchStatus === 'succeeded' && objectIDs.length > 0) {
+  //     const firstPageIds = objectIDs.slice(0, EXHIBIT_PAGE_SIZE);
+  //     dispatch(fetchExhibitsByIdsThunk(firstPageIds));
+  //   }
+  // }, [dispatch, searchStatus, objectIDs]);
+
+  // загружаем текущую страницу экспонатов
   useEffect(() => {
-    if (searchStatus === 'succeeded' && objectIDs.length > 0) {
-      const firstPageIds = objectIDs.slice(0, EXHIBIT_PAGE_SIZE);
-      dispatch(fetchExhibitsByIdsThunk(firstPageIds));
+    if (searchStatus !== 'succeeded' || objectIDs.length === 0) return;
+
+    const start = (currentPage - 1) * EXHIBIT_PAGE_SIZE;
+    const end = start + EXHIBIT_PAGE_SIZE;
+    const idsToLoad = objectIDs.slice(start, end);
+
+    if (idsToLoad.length > 0) {
+      dispatch(fetchExhibitsByIdsThunk(idsToLoad));
     }
-  }, [dispatch, searchStatus, objectIDs]);
+  }, [dispatch, searchStatus, currentPage, objectIDs]);
 
   return (
     <ErrorBoundary>
