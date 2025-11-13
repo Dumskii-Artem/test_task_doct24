@@ -12,7 +12,10 @@ export type TExhibit = {
 };
 
 export type TExhibitsState = {
-  items: TExhibit[];
-  loading: boolean;
-  error: string | null;
+  entities: Record<number, TExhibit>;   // ID → объект экспоната
+  loadedIds: number[];                  // какие ID уже загружены
+  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+
+  pendingCount: number; 
+  error: string | null; 
 };

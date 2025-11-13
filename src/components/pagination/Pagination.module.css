@@ -1,0 +1,26 @@
+/* src\components\pagination\Pagination.module.css */
+
+.pagination {
+  display: flex;
+  gap: 4px;
+  margin-top: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.pagination button {
+  padding: 4px 8px;
+  border: 1px solid #aaa;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.pagination .active {
+  font-weight: bold;
+  background-color: #ddd;
+}

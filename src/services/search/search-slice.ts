@@ -15,7 +15,7 @@ const initialState: TSearchState = {
   params: {},   
   total: 0,
   objectIDs: [],
-  loading: false,
+  status: 'idle',
   error: null,
 };
 
@@ -33,12 +33,13 @@ export const searchSlice = createSlice({
   name: 'search',
   initialState,
   reducers: {
-    // clearSearch: (state) => {
-    //   state.params = {};
-    //   state.total = 0;
-    //   state.objectIDs = [];
-    //   state.error = null;
-    // },
+    clearSearch: (state) => {
+      // state.params = {};
+      state.total = 0;
+      state.objectIDs = [];
+      state.error = null;
+      state.status = 'idle';
+    },
     // Редьюсер для установки параметров поиска
     setSearchParams(state, action) {
       state.params = action.payload; // Полная замена params
@@ -46,22 +47,22 @@ export const searchSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchSearchThunk.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(fetchSearchThunk.fulfilled, (state, action) => {
-        state.loading = false;
-        state.total = action.payload.total;
-        state.objectIDs = action.payload.objectIDs;
-      })
-      .addCase(fetchSearchThunk.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message || 'Ошибка загрузки поиска';
-      });
+    .addCase(fetchSearchThunk.pending, (state) => {
+      state.status = 'loading';
+      state.error = null;
+    })
+    .addCase(fetchSearchThunk.fulfilled, (state, action) => {
+      state.status = 'succeeded';
+      state.total = action.payload.total;
+      state.objectIDs = action.payload.objectIDs || [];
+    })
+    .addCase(fetchSearchThunk.rejected, (state, action) => {
+      state.status = 'failed';
+      state.error = action.error.message || 'Ошибка загрузки поиска';
+    });
   },
 });
 
-// export const { clearSearch } = searchSlice.actions;
-export const searchReducer = searchSlice.reducer;
+export const { clearSearch } = searchSlice.actions;
 export const { setSearchParams } = searchSlice.actions;
+export const searchReducer = searchSlice.reducer;

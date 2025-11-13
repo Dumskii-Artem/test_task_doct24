@@ -5,9 +5,11 @@ import path from 'path'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: {
+    port: 3001, // <--- тут меняешь порт стандарт 5173
+  },
   resolve: {
     alias: {
-      '@api': path.resolve(__dirname, './src/api'),
       '@assets': path.resolve(__dirname, './src/assets'),
       '@components': path.resolve(__dirname, './src/components'),
       '@const': path.resolve(__dirname, './src/const'),

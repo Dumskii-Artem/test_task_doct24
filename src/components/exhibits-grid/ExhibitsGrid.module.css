@@ -1,0 +1,11 @@
+/* src\components\exhibits-grid\ExhibitsGrid.module.css */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  width: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+}
+

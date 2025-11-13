@@ -56,8 +56,7 @@ export type TSearchState = {
   params: TSearchParams;
   total: number;
   objectIDs: number[];
-  loading: boolean;
+  // loading: boolean;
+  status: 'idle' | 'loading' | 'succeeded' | 'failed'; 
   error: string | null;
 };
-
-

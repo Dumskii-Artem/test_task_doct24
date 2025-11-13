@@ -1,57 +1,80 @@
 // src\App.tsx
 
-import { Suspense, useEffect } from 'react'
+import { Suspense, useEffect, useRef} from 'react'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
-import './App.css'
+
 import ErrorBoundary from '@ui/ErrorBoundary/ErrorBoundary'
 import FallbackErrorView from '@ui/ErrorBoundary/FallbackErrorView'
 import { router } from '@router'
 import { RouterProvider } from 'react-router-dom'
-import { useDispatch, useSelector } from '@services/store'
+import store, { useDispatch, useSelector } from '@services/store'
 import { fetchDepartmentsThunk } from '@services/departments'
-import { fetchSearchThunk, setSearchParams } from '@services/search/search-slice'
+import { clearSearch } from '@services/search/search-slice'
+import { EXHIBIT_PAGE_SIZE } from '@const'
+import { clearExhibits, fetchExhibitsByIdsThunk } from '@services/exhibits/exhibits-slice'
+import { maybeFetchSearch } from '@services/search/helpers'
 
 export default function App() {
   const dispatch = useDispatch();
+  const { objectIDs, status: searchStatus } = useSelector((state) => state.search);
   
-  // При первом запуске — загрузить список отделов
-  useEffect(() => {
-    dispatch(fetchDepartmentsThunk());
-  }, [dispatch]);
-
-  const { current, loading: depsLoading, items: departments } = useSelector(
+  // const { current, loading: depsLoading, items: departments } = useSelector(
+  const { current, loading: isDepartmentsLoading } = useSelector(
     (state) => state.departments
   );
 
-  // Когда отделы загрузились и выбран текущий — запустить поиск
+  // const [isBlocked, setIsBlocked] = useState(false);
+  const loadedIds = useSelector((state) => state.exhibits.loadedIds);
+  const firstTimeRunRef = useRef(false);
+
+  // При первом запуске — загрузить список отделов
   useEffect(() => {
-  if (!depsLoading && current && departments.length > 0) {
-    // Сначала сохраняем параметры поиска в стор
-    dispatch(
-      setSearchParams({
+    if (firstTimeRunRef.current) return;
+      firstTimeRunRef.current = true;
+    // if (isBlocked)
+    //   return
+    // setIsBlocked(true);
+    console.log('*** START ***');
+    dispatch(fetchDepartmentsThunk());
+  }, [dispatch]);
+
+
+  useEffect(() => {
+    console.log('******  ИЗМЕНИЛАСЬ loadedIds.length:', loadedIds.length);
+  }, [dispatch, loadedIds.length]);
+
+  // Когда отделы загрузились или при смене department пользователем
+  // запустить поиск
+  useEffect(() => {
+
+    console.log('********* CLEAR **********','loadedIds.length:', loadedIds.length);
+    console.log('📥 current = ', current);
+    console.log('📥 isDepartmentsLoading  =', isDepartmentsLoading);
+    
+    if (!isDepartmentsLoading && current && current.departmentId) {
+      dispatch(clearSearch());
+      dispatch(clearExhibits());
+      maybeFetchSearch(  
+        dispatch,
+        store.getState,
+        {
         departmentId: current.departmentId,
         hasImages: true,
         q: '*',
-      })
-    );
+        }
+      );
+    }
+  }, [dispatch, isDepartmentsLoading, current?.departmentId]);
 
-    // Затем выполняем поиск, thunk возьмёт params из state.search.params
-    dispatch(fetchSearchThunk());
-  }
-}, [dispatch, depsLoading, current, departments]);
 
-  // useEffect(() => {
-  //   if (!depsLoading && current && departments.length > 0) {
-  //     dispatch(
-  //       fetchSearchThunk({
-  //         departmentId: current.departmentId,
-  //         hasImages: true,
-  //         q: '*',
-  //       })
-  //     );
-  //   }
-  // }, [dispatch, depsLoading, current, departments]);
+  // Когда поиск завершён — загружаем первую страницу экспонатов
+  useEffect(() => {
+    if (searchStatus === 'succeeded' && objectIDs.length > 0) {
+      const firstPageIds = objectIDs.slice(0, EXHIBIT_PAGE_SIZE);
+      dispatch(fetchExhibitsByIdsThunk(firstPageIds));
+    }
+  }, [dispatch, searchStatus, objectIDs]);
 
   return (
     <ErrorBoundary>

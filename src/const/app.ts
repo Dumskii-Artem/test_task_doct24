@@ -1,6 +1,7 @@
 // src\const\app.ts
 
 export const API_BASE_URL = 'https://collectionapi.metmuseum.org/public/collection/v1';
+export const EXHIBIT_PAGE_SIZE = 10
 
 
 // export const PAGE_SIZE = 9; // количество карточек на страницу

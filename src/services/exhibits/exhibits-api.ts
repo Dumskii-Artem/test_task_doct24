@@ -3,14 +3,14 @@
 import { API_BASE_URL } from "@const";
 import type { TExhibit } from "./exhibits-types";
 
-// Загружает экспонаты для указанного отдела
-export async function getObjectIdsByDepartment(departmentId: number): Promise<number[]> {
-  const url = `${API_BASE_URL}/search?departmentId=${departmentId}&hasImages=true&q=*`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error('Ошибка загрузки списка ID');
-  const data = await res.json();
-  return data.objectIDs || [];
-}
+// // Загружает экспонаты для указанного отдела
+// export async function getObjectIdsByDepartment(departmentId: number): Promise<number[]> {
+//   const url = `${API_BASE_URL}/search?departmentId=${departmentId}&hasImages=true&q=*`;
+//   const res = await fetch(url);
+//   if (!res.ok) throw new Error('Ошибка загрузки списка ID');
+//   const data = await res.json();
+//   return data.objectIDs || [];
+// }
 
 // детали одного экспоната
 export async function getObjectById(id: number): Promise<TExhibit> {
@@ -29,30 +29,30 @@ export async function getObjectById(id: number): Promise<TExhibit> {
   };
 }
 
-//  детали по нескольким ID 
-export async function getObjectsByIds(ids: number[]): Promise<TExhibit[]> {
-  const results = await Promise.all(
-    ids.map(async (id) => {
-      try {
-        const obj = await getObjectById(id);
-        return obj.primaryImageSmall ? obj : null;
-      } catch {
-        return null;
-      }
-    })
-  );
-  return results.filter(Boolean) as TExhibit[];
-}
+// //  детали по нескольким ID 
+// export async function getObjectsByIds(ids: number[]): Promise<TExhibit[]> {
+//   const results = await Promise.all(
+//     ids.map(async (id) => {
+//       try {
+//         const obj = await getObjectById(id);
+//         return obj.primaryImageSmall ? obj : null;
+//       } catch {
+//         return null;
+//       }
+//     })
+//   );
+//   return results.filter(Boolean) as TExhibit[];
+// }
 
 
-export async function fetchExhibitsByDepartment(
-  departmentId: number,
-  limit = 20,
-  page = 1
-): Promise<TExhibit[]> {
-  const ids = await getObjectIdsByDepartment(departmentId);
-  if (!ids.length) return [];
-  const start = (page - 1) * limit;
-  const limited = ids.slice(start, start + limit);
-  return getObjectsByIds(limited);
-}
+// export async function fetchExhibitsByDepartment(
+//   departmentId: number,
+//   limit = 20,
+//   page = 1
+// ): Promise<TExhibit[]> {
+//   const ids = await getObjectIdsByDepartment(departmentId);
+//   if (!ids.length) return [];
+//   const start = (page - 1) * limit;
+//   const limited = ids.slice(start, start + limit);
+//   return getObjectsByIds(limited);
+// }

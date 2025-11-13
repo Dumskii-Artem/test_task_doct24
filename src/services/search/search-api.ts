@@ -23,7 +23,6 @@ export async function fetchSearch(params: TSearchParams): Promise<TSearchResult>
   query.append('q', params.q || '*');
 
   const url = `${API_BASE_URL}/search?${query.toString()}`;
-  console.log('*** SEARCH URL:', url, 'current dep:');
   const res = await fetch(url);
 
   if (!res.ok) throw new Error('Ошибка загрузки результатов поиска');

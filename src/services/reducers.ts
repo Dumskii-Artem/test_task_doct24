@@ -2,10 +2,12 @@
 
 import { combineSlices } from '@reduxjs/toolkit';
 import { departmentsSlice } from './departments';
-import { searchSlice } from './search/search-slice';
+import { exhibitsSlice } from './exhibits';
+import { searchSlice } from './search';
 
 export const rootReducer = combineSlices(
   departmentsSlice,
+  exhibitsSlice,
   searchSlice
 );
 

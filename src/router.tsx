@@ -37,22 +37,3 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
-
-// export const router = createBrowserRouter([
-//   {
-//     path: '/',
-//     element: <Navigate to="/products" replace />,
-//   },
-//   {
-//     path: '/products',
-//     element: <ProductsPage />,
-//   },
-//   {
-//     path: '/products/:id',
-//     element: <ProductDetailsPage />,
-//   },
-//   {
-//     path: '/create-product',
-//     element: <CreateProductPage />,
-//   },
-// ]);
