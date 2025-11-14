@@ -14,20 +14,27 @@ import { steal } from '@services/stolen';
 type CardProps = {
   exhibit: TExhibit;
   cardClassName?: string;
+  onCardClick?: () => void;
 };
 
-export default function ExhibitCard({ exhibit, cardClassName }: CardProps) {
+export default function ExhibitCard({ exhibit, cardClassName, onCardClick }: CardProps) {
   const dispatch = useDispatch();
   const liked = useSelector(state => state.likes.ids.includes(exhibit.objectID));
 
   return (
-    <div className={`${styles.card} ${liked ? styles.liked : ''} ${cardClassName || ''}`}>
+    <div
+      className={`${styles.card} ${liked ? styles.liked : ''} ${cardClassName || ''}`}
+      onClick={onCardClick}
+    >
       <div className={styles.icons_row}>
 
         <div className={styles.tooltipWrapper}>
           <button
             className={styles.stealButton}
-            onClick={() => dispatch(steal(exhibit.objectID))}
+            onClick={(event) => {
+              event.stopPropagation();
+              dispatch(steal(exhibit.objectID));
+            }}
           >
             <FaSackXmark size={ICON_SIZE} />
           </button>
@@ -36,9 +43,13 @@ export default function ExhibitCard({ exhibit, cardClassName }: CardProps) {
         </div>
 
         <div className={styles.tooltipWrapper}>
+
           <button
             className={styles.likeButton}
-            onClick={() => dispatch(toggleLike(exhibit.objectID))}
+            onClick={(event) => {
+              event.stopPropagation();
+              dispatch(toggleLike(exhibit.objectID));
+            }}
           >
             {
               liked 

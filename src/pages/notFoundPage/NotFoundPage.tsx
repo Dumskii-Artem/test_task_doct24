@@ -16,7 +16,7 @@ export default function NotFoundPage() {
       <h1>404 — Страница не найдена</h1>
       <p>Похоже, вы попали не туда.</p>
       <a
-        href="/products"
+        href="/exhibits"
         style={{
           marginTop: '1rem',
           textDecoration: 'none',

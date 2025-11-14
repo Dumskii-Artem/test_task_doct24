@@ -2,6 +2,7 @@
 
 export const API_BASE_URL = 'https://collectionapi.metmuseum.org/public/collection/v1';
 export const EXHIBIT_PAGE_SIZE = 10
+export const IMAGE_CACHE_SIZE=2
 
 export const ICON_SIZE = 30
 

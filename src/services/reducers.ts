@@ -8,6 +8,7 @@ import { paginationSlice } from './pagination';
 import { likesSlice } from './likes';
 import { stolenSlice } from './stolen';
 
+
 export const rootReducer = combineSlices(
   departmentsSlice,
   exhibitsSlice,
