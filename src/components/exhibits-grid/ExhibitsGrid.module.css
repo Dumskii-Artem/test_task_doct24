@@ -1,5 +1,6 @@
 /* src\components\exhibits-grid\ExhibitsGrid.module.css */
 
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -8,4 +9,34 @@
   padding: 16px;
   box-sizing: border-box;
 }
+
+.grid1 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  width: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+
+  /* grid-template-columns: repeat(auto-fit, minmax(240px, max-content));
+  justify-content: center; */
+  /* width: auto;
+  max-width: 1400px; /* чтобы не разлеталось на супер широких экранах */
+  /* margin: 0 auto;  
+
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  justify-items: center; */
+}
+
+.grid-new {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  width: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+  justify-items: center;
+}
+
+
 

@@ -1,8 +1,5 @@
 // src\pages\productsPage\ProductsPage.tsx
 
-// import { getProducts, type Product } from "@api/picsumApi";
-// import { PAGE_SIZE } from "@const";
-// import { useEffect, useState } from "react";
 import ExhibitsGrid from '@components/exhibits-grid/ExhibitsGrid';
 import styles from './ProductsPage.module.css';
 import Pagination from '@components/pagination/Pagination';

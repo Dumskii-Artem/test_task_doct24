@@ -14,6 +14,8 @@
   --color-bg-liked: #cef0f8;
   --color-highlited: #4f39fa;
 
+  --color-shadow: rgba(0,0,0,0.15);
+
   /* Шрифт */
   --main-font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 
@@ -24,5 +26,5 @@
   --font-small: 400 14px/1.5 var(--main-font-family);
 
   /* Тени */
-  --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 2px 6px var(--color-shadow);
 }

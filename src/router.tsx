@@ -6,6 +6,8 @@ import ProductDetailsPage from "@pages/productDetailsPage";
 import CreateProductPage from "@pages/createProductPage";
 import RootLayout from "@layouts/RootLayout";
 import NotFoundPage from "@pages/notFoundPage";
+import LikedPage from "@pages/likedPage";
+import StolenPage from "@pages/stolenPage";
 
 
 

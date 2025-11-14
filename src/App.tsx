@@ -25,7 +25,7 @@ export default function App() {
   );
 
   // const [isBlocked, setIsBlocked] = useState(false);
-  const loadedIds = useSelector((state) => state.exhibits.loadedIds);
+  // const loadedIds = useSelector((state) => state.exhibits.loadedIds);
   const firstTimeRunRef = useRef(false);
   const currentPage = useSelector((state) => state.pagination.currentPage);
 
@@ -36,22 +36,22 @@ export default function App() {
   useEffect(() => {
     if (firstTimeRunRef.current) return;
       firstTimeRunRef.current = true;
-    console.log('*** START ***');
+    // console.log('*** START ***');
     dispatch(fetchDepartmentsThunk());
   }, [dispatch]);
 
 
-  useEffect(() => {
-    console.log('******  ИЗМЕНИЛАСЬ loadedIds.length:', loadedIds.length);
-  }, [dispatch, loadedIds.length]);
+  // useEffect(() => {
+  //   console.log('******  ИЗМЕНИЛАСЬ loadedIds.length:', loadedIds.length);
+  // }, [dispatch, loadedIds.length]);
 
   // Когда отделы загрузились или при смене department пользователем
   // запустить поиск
   useEffect(() => {
 
-    console.log('********* CLEAR **********','loadedIds.length:', loadedIds.length);
-    console.log('📥 current = ', current);
-    console.log('📥 isDepartmentsLoading  =', isDepartmentsLoading);
+    // console.log('********* CLEAR **********','loadedIds.length:', loadedIds.length);
+    // console.log('📥 current = ', current);
+    // console.log('📥 isDepartmentsLoading  =', isDepartmentsLoading);
     
     if (!isDepartmentsLoading && current && current.departmentId) {
       dispatch(clearSearch());
@@ -66,16 +66,8 @@ export default function App() {
         }
       );
     }
-  }, [dispatch, isDepartmentsLoading, current?.departmentId]);
-
-
-  // useEffect(() => {
-  //   if (searchStatus === 'succeeded' && objectIDs.length > 0) {
-  //     const firstPageIds = objectIDs.slice(0, EXHIBIT_PAGE_SIZE);
-  //     dispatch(fetchExhibitsByIdsThunk(firstPageIds));
-  //   }
-  // }, [dispatch, searchStatus, objectIDs]);
-
+  }, [dispatch, isDepartmentsLoading, current?.departmentId, current]);
+ 
   // загружаем текущую страницу экспонатов
   useEffect(() => {
     if (searchStatus !== 'succeeded' || objectIDs.length === 0) return;

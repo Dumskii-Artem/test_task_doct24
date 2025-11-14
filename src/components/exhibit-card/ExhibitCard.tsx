@@ -11,16 +11,17 @@ import { FaSackXmark } from 'react-icons/fa6';
 import { toggleLike } from '@services/likes';
 import { steal } from '@services/stolen';
 
-type Props = {
+type CardProps = {
   exhibit: TExhibit;
+  cardClassName?: string;
 };
 
-export default function ExhibitCard({ exhibit }: Props) {
+export default function ExhibitCard({ exhibit, cardClassName }: CardProps) {
   const dispatch = useDispatch();
   const liked = useSelector(state => state.likes.ids.includes(exhibit.objectID));
 
   return (
-    <div className={`${styles.card} ${liked ? styles.liked : ''}`}>
+    <div className={`${styles.card} ${liked ? styles.liked : ''} ${cardClassName || ''}`}>
       <div className={styles.icons_row}>
 
         <div className={styles.tooltipWrapper}>

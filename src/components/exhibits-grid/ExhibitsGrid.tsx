@@ -4,19 +4,30 @@ import { useSelector } from '@services/store';
 import ExhibitCard from '../exhibit-card/ExhibitCard';
 import styles from './ExhibitsGrid.module.css';
 import { selectCurrentPageExhibits } from './selectors';
+import type { TExhibit } from '@services/exhibits';
 
-export default function ExhibitsGrid() {
+type GridProps = {
+  items?: TExhibit[];
+  gridClassName?: string; 
+  cardClassName?: string; 
+};
+
+export default function ExhibitsGrid({ items, gridClassName, cardClassName }: GridProps) {
   const stolenIds = useSelector(state => state.stolen.ids);
   const exhibits = useSelector(selectCurrentPageExhibits);
-  const filtered = exhibits.filter(item => !stolenIds.includes(item.objectID));
+
+  // Если items переданы → используем их
+  const list = items ? items : exhibits.filter(item => !stolenIds.includes(item.objectID));
 
   return (
-    <div className={styles.grid}>
-      <div className={styles.grid}>
-        {filtered.map((exhibit) => (
-          <ExhibitCard key={exhibit.objectID} exhibit={exhibit} />
-        ))}
-      </div>
+    <div className={`${styles.grid} ${gridClassName || ''}`}>
+      {list.map((exhibit) => (
+        <ExhibitCard 
+          key={exhibit.objectID} 
+          exhibit={exhibit} 
+          cardClassName={cardClassName}
+        />
+      ))}
     </div>
   );      
 }
