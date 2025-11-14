@@ -2,4 +2,5 @@
 
 export type PaginationState = {
   currentPage: number;
+  pageSize: number;
 };

@@ -1,28 +1,31 @@
 // src\services\likes\likes-slice.ts
 
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import type { TExhibit } from '@services/exhibits';
 
 export type TLikesState = {
-  ids: number[]; // массив лайкнутых айдишников
+  ids: number[];
+  items: TExhibit[];
 };
 
 const initialState: TLikesState = {
   ids: [],
+  items: [],
 };
 
 export const likesSlice = createSlice({
   name: 'likes',
   initialState,
   reducers: {
-    toggleLike(state, action: PayloadAction<number>) {
-      const id = action.payload;
+    toggleLike(state, action: PayloadAction<TExhibit>) {
+      const exhibit = action.payload;
 
-      // если есть — удалить
-      if (state.ids.includes(id)) {
-        state.ids = state.ids.filter((x) => x !== id);
+      if (state.ids.includes(exhibit.objectID)) {
+        state.ids = state.ids.filter(id => id !== exhibit.objectID);
+        state.items = state.items.filter(x => x.objectID !== exhibit.objectID);
       } else {
-        // если нет — добавить
-        state.ids.push(id);
+        state.ids.push(exhibit.objectID);
+        state.items.push(exhibit);
       }
     },
   },

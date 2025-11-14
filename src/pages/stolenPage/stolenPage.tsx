@@ -2,19 +2,21 @@
 
 import ExhibitsGrid from '@components/exhibits-grid/ExhibitsGrid';
 import { useSelector } from '@services/store';
-import styles from '../productsPage/ProductsPage.module.css';
+import styles from './stolenPage.module.css';
 
 export default function StolenPage() {
-  const stolenIds = useSelector((state) => state.stolen.ids);
-  const entities = useSelector((state) => state.exhibits.entities);
-
-  const stolenExhibits = stolenIds
-    .map((id) => entities[id])
-    .filter(Boolean);
+  const stolen = useSelector(state => state.stolen.items);
 
   return (
     <section className={styles.section}>
-      <ExhibitsGrid items={stolenExhibits} />
+      {stolen.length === 0 && (
+        <p className={styles.emptyMessage}>Вы пока ничего не лайкнули.</p>
+      )}
+      <ExhibitsGrid 
+        items={stolen} 
+        gridClassName={styles.gridLiked} 
+        cardClassName={styles.cardFixed}
+      />
     </section>
   );
 }

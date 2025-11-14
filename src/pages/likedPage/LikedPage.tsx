@@ -5,20 +5,15 @@ import { useSelector } from '@services/store';
 import styles from './LikedPage.module.css';
 
 export default function LikedPage() {
-  const likedIds = useSelector((state) => state.likes.ids);
-  const entities = useSelector((state) => state.exhibits.entities);
-
-  const likedExhibits = likedIds
-    .map((id) => entities[id])
-    .filter(Boolean);
+  const liked = useSelector(state => state.likes.items);
 
   return (
     <section className={styles.section}>
-      {likedExhibits.length === 0 && (
+      {liked.length === 0 && (
         <p className={styles.emptyMessage}>Вы пока ничего не лайкнули.</p>
       )}
       <ExhibitsGrid 
-        items={likedExhibits} 
+        items={liked} 
         gridClassName={styles.gridLiked} 
         cardClassName={styles.cardFixed}
       />

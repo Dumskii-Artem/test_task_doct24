@@ -11,6 +11,7 @@ export default function Header() {
   const dispatch = useDispatch();
   const { items: departments, current } = useSelector((state) => state.departments);
   const { total, status, error } = useSelector((state) => state.search);
+  const stolenCount = useSelector(state => state.stolen.ids.length);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selected = departments.find(
@@ -46,10 +47,12 @@ export default function Header() {
           <NavLink to="/liked" className={styles.headerButton}>
             Любимки
           </NavLink>
-
-          <NavLink to="/stolen"className={`${styles.headerButton} ${styles.headerButtonDanger}`}>
-            Украденные
-          </NavLink>
+          
+          {stolenCount > 0 && (
+            <NavLink to="/stolen"className={`${styles.headerButton} ${styles.headerButtonDanger}`}>
+              Украденные
+            </NavLink>
+          )}
 
 
           <NavLink to="/about" className={({ isActive }) => (isActive ? styles.active : '')}>

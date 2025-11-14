@@ -11,7 +11,6 @@ import { RouterProvider } from 'react-router-dom'
 import store, { useDispatch, useSelector } from '@services/store'
 import { fetchDepartmentsThunk } from '@services/departments'
 import { clearSearch } from '@services/search/search-slice'
-import { EXHIBIT_PAGE_SIZE } from '@const'
 import { clearExhibits, fetchExhibitsByIdsThunk } from '@services/exhibits/exhibits-slice'
 import { maybeFetchSearch } from '@services/search/helpers'
 
@@ -28,6 +27,8 @@ export default function App() {
   // const loadedIds = useSelector((state) => state.exhibits.loadedIds);
   const firstTimeRunRef = useRef(false);
   const currentPage = useSelector((state) => state.pagination.currentPage);
+  const pageSize = useSelector(state => state.pagination.pageSize);
+
 
 
   // const [currentPage, setCurrentPage] = useState(1);
@@ -72,14 +73,16 @@ export default function App() {
   useEffect(() => {
     if (searchStatus !== 'succeeded' || objectIDs.length === 0) return;
 
-    const start = (currentPage - 1) * EXHIBIT_PAGE_SIZE;
-    const end = start + EXHIBIT_PAGE_SIZE;
+
+    const start = (currentPage - 1) * pageSize;
+    const end = start + pageSize;
+
     const idsToLoad = objectIDs.slice(start, end);
 
     if (idsToLoad.length > 0) {
       dispatch(fetchExhibitsByIdsThunk(idsToLoad));
     }
-  }, [dispatch, searchStatus, currentPage, objectIDs]);
+  }, [dispatch, searchStatus, currentPage, objectIDs, pageSize]);
 
   return (
     <ErrorBoundary>

@@ -19,21 +19,23 @@ type CardProps = {
 
 export default function ExhibitCard({ exhibit, cardClassName, onCardClick }: CardProps) {
   const dispatch = useDispatch();
-  const liked = useSelector(state => state.likes.ids.includes(exhibit.objectID));
+  const isLiked = useSelector(state => state.likes.ids.includes(exhibit.objectID));
+  const isStolen = useSelector(state => state.stolen.ids.includes(exhibit.objectID));
 
   return (
     <div
-      className={`${styles.card} ${liked ? styles.liked : ''} ${cardClassName || ''}`}
+      className={`${styles.card} ${isLiked ? styles.liked : ''} ${isStolen ? styles.stolen : ''} ${cardClassName || ''}`}
       onClick={onCardClick}
     >
       <div className={styles.icons_row}>
 
+{!isStolen && (
         <div className={styles.tooltipWrapper}>
           <button
             className={styles.stealButton}
             onClick={(event) => {
               event.stopPropagation();
-              dispatch(steal(exhibit.objectID));
+              dispatch(steal(exhibit));
             }}
           >
             <FaSackXmark size={ICON_SIZE} />
@@ -41,6 +43,7 @@ export default function ExhibitCard({ exhibit, cardClassName, onCardClick }: Car
 
           <span className={styles.tooltip}>Украсть!</span>
         </div>
+)}
 
         <div className={styles.tooltipWrapper}>
 
@@ -48,16 +51,16 @@ export default function ExhibitCard({ exhibit, cardClassName, onCardClick }: Car
             className={styles.likeButton}
             onClick={(event) => {
               event.stopPropagation();
-              dispatch(toggleLike(exhibit.objectID));
+              dispatch(toggleLike(exhibit));
             }}
           >
             {
-              liked 
+              isLiked 
                 ? <AiFillHeart size={ICON_SIZE} />
                 : <AiOutlineHeart size={ICON_SIZE} />
             }
           </button>
-          <span className={styles.tooltip}>{liked ? 'Разлайкать' : 'Лайкнуть'}</span>
+          <span className={styles.tooltip}>{isLiked ? 'Разлайкать' : 'Лайкнуть'}</span>
         </div>
 
 
@@ -72,7 +75,7 @@ export default function ExhibitCard({ exhibit, cardClassName, onCardClick }: Car
         <h3 className={styles.title}>{exhibit.title}</h3>
         <p className={styles.author}>{exhibit.artistDisplayName}</p>
         <p className={styles.date}>{exhibit.objectDate}</p>
-        <p className={styles.department}>{exhibit.department}</p>
+        {/* <p className={styles.department}>{exhibit.department}</p> */}
       </div>
     </div>
   );

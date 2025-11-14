@@ -62,7 +62,7 @@ export default function ExhibitModal({ exhibit, onClose }: ModalProps) {
     <div className={styles.backdrop} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         
-        <button className={styles.closeBtn} onClick={onClose}>×</button>
+        {/* <button className={styles.closeBtn} onClick={onClose}>×</button> */}
 
         <img src={src} alt={exhibit.title} className={styles.image} />
 

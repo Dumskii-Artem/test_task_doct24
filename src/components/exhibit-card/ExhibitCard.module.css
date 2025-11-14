@@ -100,3 +100,7 @@
 .stealButton:hover {
   opacity: 0.5;
 }
+
+.stolen .icons_row {
+  justify-content: flex-end;
+}

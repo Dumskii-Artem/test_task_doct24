@@ -2,12 +2,12 @@
 
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import ProductsPage from "@pages/productsPage";
-// import ProductDetailsPage from "@pages/productDetailsPage";
-// import CreateProductPage from "@pages/createProductPage";
 import RootLayout from "@layouts/RootLayout";
 import NotFoundPage from "@pages/notFoundPage";
 import LikedPage from "@pages/likedPage";
 import StolenPage from "@pages/stolenPage";
+import AboutPage from "@pages/aboutPage";
+
 
 
 
@@ -21,7 +21,7 @@ export const router = createBrowserRouter([
         element: <Navigate to="/exhibits" replace />,
       },
       {
-        path: 'exhibits',
+        path: '/exhibits',
         element: <ProductsPage />,
       },
       {
@@ -32,6 +32,10 @@ export const router = createBrowserRouter([
         path: '/stolen',
         element: <StolenPage />
       },
+      { 
+        path: 'about', 
+        element: <AboutPage /> 
+      },  
       {
         path: '*',
         element: <NotFoundPage />,

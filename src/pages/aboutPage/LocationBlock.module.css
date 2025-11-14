@@ -1,0 +1,45 @@
+/* src\pages\aboutPage\LocationBlock.module.css */
+
+.locationBlock {
+  width: 100%;
+  margin-top: 32px;
+}
+
+.title {
+  font: var(--font-h2);
+  color: var(--color-text);
+  margin-bottom: 16px;
+}
+
+.image {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 16px;
+}
+
+.bottomRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.address {
+  font: var(--font-base);
+  color: var(--color-text);
+}
+
+.mapLink {
+  font: var(--font-base);
+  color: var(--color-primary);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.mapLink:hover {
+  text-decoration: underline;
+  color: var(--color-primary);
+  cursor: pointer;
+}
