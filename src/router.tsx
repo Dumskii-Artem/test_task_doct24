@@ -31,6 +31,14 @@ export const router = createBrowserRouter([
         element: <CreateProductPage />,
       },
       {
+        path: '/liked',
+        element: <LikedPage />
+      },
+      {
+        path: '/stolen',
+        element: <StolenPage />
+      },
+      {
         path: '*',
         element: <NotFoundPage />,
       },

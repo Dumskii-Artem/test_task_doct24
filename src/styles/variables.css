@@ -10,6 +10,9 @@
   --color-error: #d32f2f;
   --color-white: #fff;
   --color-bg_header: #98e3fa;
+  --color-bg_tooltip:rgba(12, 127, 243, 0.85);
+  --color-bg-liked: #cef0f8;
+  --color-highlited: #4f39fa;
 
   /* Шрифт */
   --main-font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;

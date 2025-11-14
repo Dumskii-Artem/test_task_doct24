@@ -3,7 +3,8 @@
 .card {
   background: white;
   border-radius: 12px;
-  overflow: hidden;
+  /* overflow: hidden; */
+  overflow: visible;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   transition: 0.2s;
 }
@@ -34,4 +35,62 @@
   margin: 4px 0;
   font-size: 14px;
   color: #555;
+}
+
+.tooltipWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: -32px; /* над иконкой */
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-bg_tooltip);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 16px;
+  white-space: nowrap;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.tooltipWrapper:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.liked {
+  background: var(--color-bg-liked, #cef0f8)
+}
+
+.icons_row {
+  display: flex;
+  align-items: center;
+  /* gap: 12px; */
+  margin: 8px;
+  justify-content: space-between;
+}
+
+.likeButton,
+.stealButton {
+  background: none;
+  border: none;
+  outline: none;
+  padding: 4px;
+  margin: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.likeButton:hover,
+.stealButton:hover {
+  opacity: 0.5;
 }

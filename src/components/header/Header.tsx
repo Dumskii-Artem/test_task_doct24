@@ -40,7 +40,7 @@ export default function Header() {
       <div className={styles.subheader}>
         <nav className={styles.nav}>
           <NavLink to="/products" className={({ isActive }) => (isActive ? styles.active : '')}>
-            Продукты
+            Экспонаты
           </NavLink>
           <NavLink to="/create-product" className={({ isActive }) => (isActive ? styles.active : '')}>
             Создать продукт
@@ -48,6 +48,16 @@ export default function Header() {
           <NavLink to="/products/1" className={({ isActive }) => (isActive ? styles.active : '')}>
             Продукт 1
           </NavLink>
+
+          <NavLink to="/liked" className={styles.headerButton}>
+            Любимки
+          </NavLink>
+
+          <NavLink to="/stolen"className={`${styles.headerButton} ${styles.headerButtonDanger}`}>
+            Украденные
+          </NavLink>
+
+
           <NavLink to="/about" className={({ isActive }) => (isActive ? styles.active : '')}>
             О нас
           </NavLink>

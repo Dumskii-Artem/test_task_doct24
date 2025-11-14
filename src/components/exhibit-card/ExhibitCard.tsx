@@ -2,14 +2,54 @@
 
 import styles from './ExhibitCard.module.css';
 import type { TExhibit } from '@services/exhibits/exhibits-types';
+import { ICON_SIZE } from '@const';
+import { useDispatch, useSelector } from '@services/store';
+
+// иконки
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import { FaSackXmark } from 'react-icons/fa6';
+import { toggleLike } from '@services/likes';
+import { steal } from '@services/stolen';
 
 type Props = {
   exhibit: TExhibit;
 };
 
 export default function ExhibitCard({ exhibit }: Props) {
+  const dispatch = useDispatch();
+  const liked = useSelector(state => state.likes.ids.includes(exhibit.objectID));
+
   return (
-    <div className={styles.card}>
+    <div className={`${styles.card} ${liked ? styles.liked : ''}`}>
+      <div className={styles.icons_row}>
+
+        <div className={styles.tooltipWrapper}>
+          <button
+            className={styles.stealButton}
+            onClick={() => dispatch(steal(exhibit.objectID))}
+          >
+            <FaSackXmark size={ICON_SIZE} />
+          </button>
+
+          <span className={styles.tooltip}>Украсть!</span>
+        </div>
+
+        <div className={styles.tooltipWrapper}>
+          <button
+            className={styles.likeButton}
+            onClick={() => dispatch(toggleLike(exhibit.objectID))}
+          >
+            {
+              liked 
+                ? <AiFillHeart size={ICON_SIZE} />
+                : <AiOutlineHeart size={ICON_SIZE} />
+            }
+          </button>
+          <span className={styles.tooltip}>{liked ? 'Разлайкать' : 'Лайкнуть'}</span>
+        </div>
+
+
+      </div>
       <img
         src={exhibit.primaryImageSmall || '/no-image.png'}
         alt={exhibit.title}
