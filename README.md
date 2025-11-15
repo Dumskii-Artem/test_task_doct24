@@ -1,6 +1,8 @@
 # React SPA для просмотра коллекций MET Museum
 #### выполнено в рамках тестового задания
 
+[**посмотреть на github pages**](https://dumskii-artem.github.io/test_task_doct24/)
+
 **Met Explorer** — это одностраничное приложение (SPA) на **React + TypeScript + Redux Toolkit**,  
 которое работает с открытым API крупнейшего музея мира —  
 **The Metropolitan Museum of Art (MET)**, Нью-Йорк.
