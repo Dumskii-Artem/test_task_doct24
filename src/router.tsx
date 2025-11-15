@@ -1,7 +1,7 @@
 // src\pages\router.tsx
 
-import { createBrowserRouter, Navigate } from "react-router-dom";
-import ProductsPage from "@pages/productsPage";
+import { createHashRouter, Navigate } from "react-router-dom";
+import ExhibitsPage from "@pages/exhibitsPage";
 import RootLayout from "@layouts/RootLayout";
 import NotFoundPage from "@pages/notFoundPage";
 import LikedPage from "@pages/likedPage";
@@ -10,8 +10,9 @@ import AboutPage from "@pages/aboutPage";
 
 
 
-
-export const router = createBrowserRouter([
+// GitHub Pages НЕ поддерживает BrowserRouter.
+// export const router = createBrowserRouter([
+export const router = createHashRouter([
   {
     path: '/',
     element: <RootLayout />,      // тут Header
@@ -22,7 +23,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/exhibits',
-        element: <ProductsPage />,
+        element: <ExhibitsPage />,
       },
       {
         path: '/liked',

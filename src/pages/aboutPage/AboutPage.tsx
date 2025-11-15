@@ -3,6 +3,7 @@
 
 import styles from './AboutPage.module.css';
 import LocationBlock from './LocationBlock';
+import metImage from '@assets/met.avif';
 
 export default function AboutPage() {
   return (
@@ -11,7 +12,7 @@ export default function AboutPage() {
 
       <img
         className={styles.image}
-        src="/met.avif"
+        src={metImage}
         alt="The Metropolitan Museum of Art"
       />
 

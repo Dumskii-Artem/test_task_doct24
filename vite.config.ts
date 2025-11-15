@@ -5,8 +5,9 @@ import path from 'path'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: '/test_task_doct24/',
   server: {
-    port: 3001, // <--- тут меняешь порт стандарт 5173
+    port: 3001, // <--- тут меняешь порт стандарт 5173 . Только для localhost, в проде не используется
   },
   resolve: {
     alias: {
