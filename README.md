@@ -34,9 +34,7 @@
 
 # Метрополитен-музей (The MET Museum)
 
-Приложение использует официальное открытое API музея:
-
-https://metmuseum.github.io/
+Приложение использует [**официальное открытое API музея**](https://metmuseum.github.io/)
 
 Это API предоставляет доступ к:
 - 20+ отделам коллекции (Egyptian Art, European Paintings, Arms & Armor, Photography…)
